@@ -1,4 +1,4 @@
-enum GameOverModel {
+enum GameOverViewModel {
     case win
     case lose
     case highscoreWin
@@ -25,3 +25,5 @@ enum GameOverModel {
         }
     }
 }
+
+

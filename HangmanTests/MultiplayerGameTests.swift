@@ -48,35 +48,54 @@ class MultiplayerGameTests: XCTestCase {
         XCTAssertEqual(100, scoreAfter)
     }
     
-    func testGetPlayerForCurrentTurn_Start_Player1() {
-        let currentPlayer = multiplayerGame.getPlayerForCurrentTurn()
+    func testTurnIsOver_Player1HasGuessedTwice_ScoreIncreases() {
+        multiplayerGame.turnIsOver(score: 150)
+        multiplayerGame.turnIsOver(score: 0)
+        multiplayerGame.turnIsOver(score: 100)
         
-        XCTAssertEqual(currentPlayer, multiplayerGame.players[0])
+        let scoreAfter = multiplayerGame.players[0].score
+        
+        XCTAssertEqual(250, scoreAfter)
+
     }
     
-    func testGetPlayerForCurrentTurn_OneTurnPassed_Player2() {
-        multiplayerGame.turnIsOver(score: 0)
-        let currentPlayer = multiplayerGame.getPlayerForCurrentTurn()
+    func testGetPlayerToGuess_Start_Player1() {
+        let playerToGuess = multiplayerGame.getPlayerToGuess()
         
-        XCTAssertEqual(currentPlayer, multiplayerGame.players[1])
+        XCTAssertEqual(playerToGuess, multiplayerGame.players[0])
     }
     
-    func testIsGameOver_SixTurnsPlayed_True() {
-        multiplayerGame.turnIsOver(score: 0)
-        multiplayerGame.turnIsOver(score: 0)
-        multiplayerGame.turnIsOver(score: 0)
-        multiplayerGame.turnIsOver(score: 0)
-        multiplayerGame.turnIsOver(score: 0)
-        multiplayerGame.turnIsOver(score: 0)
+    func testGetPlayerToChooseWord_Start_Player2() {
+        let playerToChoose = multiplayerGame.getPlayerToChooseWord()
         
-        let isGameOver = multiplayerGame.isGameOver()
+        XCTAssertEqual(playerToChoose, multiplayerGame.players[1])
+    }
+    
+    func testGetPlayerToGuess_AfterOneTurn_Player2() {
+        multiplayerGame.turnIsOver(score: 0)
+        let playerToGuess = multiplayerGame.getPlayerToGuess()
+        
+        XCTAssertEqual(playerToGuess, multiplayerGame.players[1])
+    }
+    
+    func testGetPlayerToChooseWord_AfterOneTurn_Player1() {
+        multiplayerGame.turnIsOver(score: 0)
+        let playerToChoose = multiplayerGame.getPlayerToChooseWord()
+        
+        XCTAssertEqual(playerToChoose, multiplayerGame.players[0])
+    }
+
+    
+    func testIsGameOver_AllTurnsPlayed_True() {
+        for _ in 1...multiplayerGame.totalTurns { multiplayerGame.turnIsOver(score: 0) }
+        
+        let isGameOver = multiplayerGame.gameIsOver()
         XCTAssertTrue(isGameOver)
     }
     
     func testIsGameOver_OneTurnPlayed_False() {
         multiplayerGame.turnIsOver(score: 0)
-        let isGameOver = multiplayerGame.isGameOver()
+        let isGameOver = multiplayerGame.gameIsOver()
         XCTAssertFalse(isGameOver)
     }
-
 }

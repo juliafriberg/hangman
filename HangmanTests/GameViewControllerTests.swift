@@ -94,7 +94,7 @@ class GameViewControllerTests: XCTestCase {
     
     func testRestart_GuessedWordResets() {
         viewController.guessedWordView.setText(word: "Test")
-        viewController.restart(with: .easy)
+        viewController.restart(with: .easy, word: nil, multiplayer: false)
         let correctResetWord = String(repeating: "_", count: viewController.hangman!.correctWord.numberOfCharacters())
         let actualResetWord = viewController.guessedWordView.guessedWordLabel.text
         XCTAssertEqual(correctResetWord, actualResetWord)
@@ -102,9 +102,8 @@ class GameViewControllerTests: XCTestCase {
     
     func testRestart_HangmanDrawingClears() {
         viewController.hangmanView.add(part: HangmanDrawingPart.body)
-        viewController.restart(with: .easy)
+        viewController.restart(with: .easy, word: nil, multiplayer: false)
         let numberOfPartLayers = viewController.hangmanView.partLayers.count
         XCTAssertEqual(0, numberOfPartLayers)
     }
-    
 }

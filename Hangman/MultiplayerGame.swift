@@ -1,28 +1,39 @@
-struct MultiplayerGame {
+
+class MultiplayerGame {
     let difficulty: HangmanDifficulty
     var currentTurn = 1
     var totalTurns = 6
     var players = [Player(name: "Player1"), Player(name: "Player2")]
     
-    
-    
     init(difficulty: HangmanDifficulty) {
         self.difficulty = difficulty
     }
     
-    mutating func turnIsOver(score: Int) {
-        let currentPlayer = getPlayerForCurrentTurn()
-        currentPlayer.score = score
+    func turnIsOver(score: Int) {
+        let currentPlayer = getPlayerToGuess()
+        currentPlayer.score += score
         currentTurn += 1
         
     }
     
-    func getPlayerForCurrentTurn() -> Player {
+    func getPlayerToGuess() -> Player {
         return currentTurn % 2 == 0 ? players[1] : players[0]
     }
     
-    func isGameOver() -> Bool {
+    func getPlayerToChooseWord() -> Player {
+        return currentTurn % 2 == 0 ? players[0] : players[1]
+    }
+    
+    func gameIsOver() -> Bool {
         return currentTurn > totalTurns
+    }
+    
+    func winningPlayer() -> Player {
+        return players[0].score > players[1].score ? players[0] : players[1]
+    }
+    
+    func losingPlayer() -> Player {
+        return players[0].score < players[1].score ? players[0] : players[1]
     }
 }
 
