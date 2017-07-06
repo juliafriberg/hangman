@@ -15,49 +15,49 @@ class StringOperationsTests: XCTestCase {
     let shortWord = "word"
     
     func testNumberOfCharacters_ShortWord() {
-        let numberOfCharacters = shortWord.numberOfCharacters()
+        let numberOfCharacters = shortWord.count()
         
         XCTAssertEqual(4, numberOfCharacters)
     }
     
     func testNumberOfCharacters_LongWord() {
-        let numberOfCharacters = longWord.numberOfCharacters()
+        let numberOfCharacters = longWord.count()
         
         XCTAssertEqual(10, numberOfCharacters)
     }
 
 
     func testIndexOfCharacter_SecondCharacter() {
-        let index = shortWord.index(of: "o")
+        let indices = shortWord.indices(of: "o")
         
-        XCTAssertEqual([1], index)
+        XCTAssertEqual([1], indices)
     }
     
     func testIndexOfCharacter_FirstCharacter() {
-        let index = shortWord.index(of: "w")
+        let indices = shortWord.indices(of: "w")
         
-        XCTAssertEqual([0], index)
+        XCTAssertEqual([0], indices)
     }
     
     func testIndexOfCharacter_RecurringCharacter_ListOfIndices() {
-        let index = longWord.index(of: "t")
+        let indices = longWord.indices(of: "t")
         
-        XCTAssertEqual([0,3], index)
+        XCTAssertEqual([0,3], indices)
     }
     
     func testReplacing_AtFirstIndexWithH() {
-        let index = [0]
+        let indices = [0]
         
-        let replacedWord = longWord.replacing(at: index, with: "H")
+        let replacedWord = longWord.replace(at: indices, with: "H")
         
         XCTAssertEqual("HestedWord", replacedWord)
         
     }
     
     func testReplacing_AtSeveralIndicesWithH() {
-        let index = [0,3]
+        let indices = [0,3]
         
-        let replacedWord = longWord.replacing(at: index, with: "H")
+        let replacedWord = longWord.replace(at: indices, with: "H")
         
         XCTAssertEqual("HesHedWord", replacedWord)
         
@@ -67,7 +67,7 @@ class StringOperationsTests: XCTestCase {
         let firstWord = "Word1"
         let secondWord = "AnotherWord"
         
-        let differingCharacters = firstWord.charactersNotInString(from: secondWord)
+        let differingCharacters = firstWord.charactersOnlyInGivenString(secondWord)
         
         XCTAssertEqual(["a", "n", "t", "h", "e"].sorted(), differingCharacters.sorted())
     }

@@ -10,36 +10,35 @@ import Foundation
 
 extension String {
     
-    func numberOfCharacters() -> Int {
+    func count() -> Int {
         return characters.count
     }
     
-    func index(of character: Character) -> [Int] {
+    func indices(of characterToFind: Character) -> [Int] {
         var indices: [Int] = []
         
-        
-        for (index, char) in lowercased().characters.enumerated() {
-            if char == character {
+        for (index, currentCharacter) in lowercased().characters.enumerated() {
+            if currentCharacter == characterToFind {
                 indices += [index]
             }
         }
         return indices
     }
     
-    func replacing(at indices: [Int], with character: Character) -> String {
+    func replace(at indices: [Int], with character: Character) -> String {
         return String(characters.enumerated().map { (index, char) -> Character in
             return indices.contains(index) ? character : char
         })
     }
     
-    func charactersNotInString(from word: String) -> [Character] {
-        let characterSet = Set(lowercased().characters)
-        let wordCharacterSet = Set(word.lowercased().characters)
+    func charactersOnlyInGivenString(_ givenString: String) -> [Character] {
+        let originalCharacterSet = Set(lowercased().characters)
+        let givenCharacterSet = Set(givenString.lowercased().characters)
         
-        let sameCharacters = characterSet.intersection(wordCharacterSet)
+        let sameCharacters = originalCharacterSet.intersection(givenCharacterSet)
         
-        let charactersOnlyInWord = sameCharacters.symmetricDifference(wordCharacterSet)
+        let charactersOnlyInGivenString = sameCharacters.symmetricDifference(givenCharacterSet)
 
-        return Array(charactersOnlyInWord)
+        return Array(charactersOnlyInGivenString)
     }
 }

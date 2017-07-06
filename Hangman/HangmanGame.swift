@@ -17,44 +17,51 @@ class HangmanGame {
     init(with word: String = WordGenerator.generate(), difficulty: HangmanDifficulty = .easy) {
         correctWord = word.lowercased()
         guesses = ""
-        guessedWord = String(repeating: "_", count: correctWord.numberOfCharacters())
+        guessedWord = String(repeating: "_", count: correctWord.count())
         self.difficulty = difficulty
     }
     
-    func guess(_ character: Character) -> Bool {
-        guesses.append(character)
-        
-        let index = correctWord.index(of: character)
-        guessedWord = guessedWord.replacing(at: index, with: character)
-        
-        return index.count > 0
+    func guess(_ guessedCharacter: Character) {
+        guesses += "\(guessedCharacter)"
+        updateGuessedWord(with: guessedCharacter)
     }
     
     func hasWon() -> Bool {
-        return guessedWord == correctWord && guessesLeft() > -1
+        return guessedWord == correctWord && numberOfWrongGuesses() <= difficulty.maxWrongGuesses
     }
     
-    func guessesLeft() -> Int {
-        let wrongGuesses = correctWord.charactersNotInString(from: guesses)
-        return difficulty.maxWrongGuesses - wrongGuesses.count
+    func numberOfWrongGuesses() -> Int {
+        return correctWord.charactersOnlyInGivenString(guesses).count
     }
     
     func partsToDraw() -> [HangmanDrawingPart] {
-        let numberOfIncorrectGuesses = difficulty.maxWrongGuesses - guessesLeft()
         var parts: [HangmanDrawingPart] = []
-        
-        switch difficulty {
-        case .easy:
-            parts += [HangmanDrawingPart(rawValue: numberOfIncorrectGuesses)!]
-        case .hard:
-            parts += [HangmanDrawingPart(rawValue: numberOfIncorrectGuesses*2)!]
-            parts += [HangmanDrawingPart(rawValue: numberOfIncorrectGuesses*2-1)!]
+        if numberOfWrongGuesses() > 0 && numberOfWrongGuesses() <= difficulty.maxWrongGuesses {
+            switch difficulty {
+            case .easy:
+                parts += [HangmanDrawingPart(rawValue: numberOfWrongGuesses())!]
+            case .hard:
+                parts += [HangmanDrawingPart(rawValue: numberOfWrongGuesses()*2)!]
+                parts += [HangmanDrawingPart(rawValue: numberOfWrongGuesses()*2-1)!]
+            }
+
         }
         return parts
     }
     
     func points() -> Int {
-        return hasWon() ? difficulty.winningPoints + guessesLeft() * difficulty.winningPoints / difficulty.maxWrongGuesses : 0
+        var points = 0
+        if hasWon() {
+            points += difficulty.winningPoints
+            points -= numberOfWrongGuesses() * difficulty.winningPoints / difficulty.maxWrongGuesses
+        }
+        
+        return points
+    }
+    
+    private func updateGuessedWord(with character: Character) {
+        let indices = correctWord.indices(of: character)
+        guessedWord = guessedWord.replace(at: indices, with: character)
     }
 }
 

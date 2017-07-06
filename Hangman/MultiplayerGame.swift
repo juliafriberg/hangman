@@ -9,14 +9,14 @@ class MultiplayerGame {
         self.difficulty = difficulty
     }
     
-    func turnIsOver(score: Int) {
-        let currentPlayer = getPlayerToGuess()
+    func registerTurn(score: Int) {
+        let currentPlayer = getPlayerToGuessWord()
         currentPlayer.score += score
         currentTurn += 1
         
     }
     
-    func getPlayerToGuess() -> Player {
+    func getPlayerToGuessWord() -> Player {
         return currentTurn % 2 == 0 ? players[1] : players[0]
     }
     
@@ -28,11 +28,11 @@ class MultiplayerGame {
         return currentTurn > totalTurns
     }
     
-    func winningPlayer() -> Player {
+    func getWinningPlayer() -> Player {
         return players[0].score > players[1].score ? players[0] : players[1]
     }
     
-    func losingPlayer() -> Player {
+    func getLosingPlayer() -> Player {
         return players[0].score < players[1].score ? players[0] : players[1]
     }
 }

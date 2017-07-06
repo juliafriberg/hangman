@@ -33,13 +33,13 @@ class StartViewController: UIViewController {
             difficulty = .easy
         }
         
-        let hangmanGame = HangmanGame(difficulty: difficulty)
         
         if let destinationViewController = segue.destination as? GameViewController {
-            destinationViewController.hangman = hangmanGame
             
             if playerSegmentControl.selectedSegmentIndex == 1 {
-                destinationViewController.multiplayerGame = MultiplayerGame(difficulty: difficulty)
+                destinationViewController.gameViewModel = MultiplayerViewModel(with: MultiplayerGame(difficulty: difficulty), delegate: destinationViewController)
+            } else {
+                destinationViewController.gameViewModel = HangmanViewModel(with: HangmanGame(difficulty: difficulty), delegate: destinationViewController)
             }
         }
     }

@@ -38,20 +38,8 @@
                                 <rect key="frame" x="16" y="353" width="343" height="298"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijc-ih-Dra">
-                                <rect key="frame" x="335" y="72" width="24" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player1: 0 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dv4-gm-DLc">
-                                <rect key="frame" x="16" y="72" width="58.5" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player1: 0 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14r-DW-3fu">
-                                <rect key="frame" x="16" y="91" width="58.5" height="14.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dv4-gm-DLc">
+                                <rect key="frame" x="16" y="70" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -60,8 +48,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.33615520599999998" green="0.73813223839999997" blue="0.68631649019999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ijc-ih-Dra" secondAttribute="trailing" constant="16" id="1sS-cZ-HEe"/>
-                            <constraint firstItem="ijc-ih-Dra" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="4TA-xz-vMd"/>
                             <constraint firstItem="dv4-gm-DLc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="9DV-Ka-ncp"/>
                             <constraint firstAttribute="bottom" secondItem="nIp-Wp-uyT" secondAttribute="bottom" constant="460" id="AX7-0n-kc6"/>
                             <constraint firstItem="nIp-Wp-uyT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="QC5-o1-nbi"/>
@@ -71,22 +57,18 @@
                             <constraint firstItem="LKy-ne-SMh" firstAttribute="top" secondItem="nIp-Wp-uyT" secondAttribute="bottom" constant="37" id="d5z-8B-4sA"/>
                             <constraint firstItem="k1U-CB-IDP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fsQ-Ka-VCc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LKy-ne-SMh" secondAttribute="trailing" id="g5h-Fl-7lc"/>
-                            <constraint firstItem="14r-DW-3fu" firstAttribute="top" secondItem="dv4-gm-DLc" secondAttribute="bottom" constant="4" id="g8K-YS-Q7s"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="k1U-CB-IDP" secondAttribute="bottom" constant="16" id="k21-pR-c48"/>
                             <constraint firstItem="nIp-Wp-uyT" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="mAY-kz-ycX"/>
                             <constraint firstItem="k1U-CB-IDP" firstAttribute="top" secondItem="LKy-ne-SMh" secondAttribute="bottom" constant="48" id="ogG-jH-sg0"/>
                             <constraint firstAttribute="bottom" secondItem="LKy-ne-SMh" secondAttribute="bottom" constant="362" id="u6H-kn-xZ0"/>
                             <constraint firstItem="dv4-gm-DLc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="w4t-KT-0Ax"/>
-                            <constraint firstItem="14r-DW-3fu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="w5b-mS-1Z4"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="gameInformationLabel" destination="dv4-gm-DLc" id="aGK-Q0-nKm"/>
                         <outlet property="guessedWordView" destination="LKy-ne-SMh" id="Rap-YR-JFP"/>
                         <outlet property="hangmanView" destination="nIp-Wp-uyT" id="MNz-l8-Fi7"/>
                         <outlet property="letterButtonsView" destination="k1U-CB-IDP" id="Nzz-7L-dJa"/>
-                        <outlet property="player1Label" destination="dv4-gm-DLc" id="gu8-4V-10X"/>
-                        <outlet property="player2Label" destination="14r-DW-3fu" id="5ZI-Zs-6oj"/>
-                        <outlet property="turnLabel" destination="ijc-ih-Dra" id="fgG-ko-HCe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

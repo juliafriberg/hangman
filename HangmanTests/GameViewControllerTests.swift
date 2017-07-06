@@ -18,17 +18,10 @@ class GameViewControllerTests: XCTestCase {
         
         viewController = storyboard.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
         
-        // Test and Load the View at the Same Time!
         XCTAssertNotNil(viewController.view)
         
-        
-        viewController.hangman = HangmanGame(with: "TestedWord")
-    }
-    
-    override func tearDown() {
-        
-        super.tearDown()
-        
+        viewController.gameViewModel = HangmanViewModel(with: HangmanGame(with: "TestedWord"), delegate: viewController)
+        viewController.gameViewModel?.startGame()
     }
     
     func testSetTextForGuessedWordLabel() {
@@ -73,7 +66,7 @@ class GameViewControllerTests: XCTestCase {
     }
     
     func testGuess_IncorrectGuessHardDifficulty_AddTwoPartsToHangmanDrawing() {
-        viewController.hangman = HangmanGame(with: "TestedWord", difficulty: .hard)
+        viewController.gameViewModel = HangmanViewModel(with: HangmanGame(with: "TestedWord", difficulty: .hard), delegate: viewController)
         let numberOfPartLayersBefore = viewController.hangmanView.partLayers.count
         
         viewController.guessLetter("p")
@@ -83,27 +76,12 @@ class GameViewControllerTests: XCTestCase {
     }
     
     func testGuess_CorrectGuessHardDifficulty_NotAddPartToHangmanDrawing() {
-        viewController.hangman = HangmanGame(with: "TestedWord", difficulty: .hard)
+        viewController.gameViewModel = HangmanViewModel(with: HangmanGame(with: "TestedWord", difficulty: .hard), delegate: viewController)
         let numberOfPartLayersBefore = viewController.hangmanView.partLayers.count
         
         viewController.guessLetter("t")
         let numberOfPartLayersAfter = viewController.hangmanView.partLayers.count
         
         XCTAssertEqual(numberOfPartLayersBefore, numberOfPartLayersAfter)
-    }
-    
-    func testRestart_GuessedWordResets() {
-        viewController.guessedWordView.setText(word: "Test")
-        viewController.restart(with: .easy, word: nil, multiplayer: false)
-        let correctResetWord = String(repeating: "_", count: viewController.hangman!.correctWord.numberOfCharacters())
-        let actualResetWord = viewController.guessedWordView.guessedWordLabel.text
-        XCTAssertEqual(correctResetWord, actualResetWord)
-    }
-    
-    func testRestart_HangmanDrawingClears() {
-        viewController.hangmanView.add(part: HangmanDrawingPart.body)
-        viewController.restart(with: .easy, word: nil, multiplayer: false)
-        let numberOfPartLayers = viewController.hangmanView.partLayers.count
-        XCTAssertEqual(0, numberOfPartLayers)
     }
 }

@@ -14,7 +14,7 @@ class HangmanTests: XCTestCase {
     let hangman = HangmanGame(with: "TestedWord")
     
     func testGuesses_AtStart_IsEmpty() {
-        XCTAssertTrue(hangman.guesses.numberOfCharacters() == 0)
+        XCTAssertTrue(hangman.guesses.count() == 0)
     }
     
     func testGuessOnce() {
@@ -26,16 +26,6 @@ class HangmanTests: XCTestCase {
         _ = hangman.guess("p")
         _ = hangman.guess("a")
         XCTAssertEqual(hangman.guesses, "pa")
-    }
-    
-    func testGuess_Correct_IsCorrect() {
-        let result = hangman.guess("e")
-        XCTAssertTrue(result)
-    }
-    
-    func testGuess_Incorrect_IsIncorrect() {
-        let result = hangman.guess("j")
-        XCTAssertFalse(result)
     }
     
     func testGuessedWord_CorrectGuess_Updated() {
@@ -54,13 +44,13 @@ class HangmanTests: XCTestCase {
         XCTAssertEqual(hangman.guessedWord, "__________")
     }
     
-    func testGuessesLeft_FromStart_IsMaxWrongGuesses() {
-        XCTAssertEqual(hangman.difficulty.maxWrongGuesses, hangman.guessesLeft())
+    func testNumberOfWrongGuesses_FromStart_IsZero() {
+        XCTAssertEqual(0, hangman.numberOfWrongGuesses())
     }
     
-    func testGuessesLeft_AfterGuess_DecreasedByOne() {
+    func testNumberOfWrongGuesses_AfterIncorrectGuess_IncreasedByOne() {
         _ = hangman.guess("j")
-        XCTAssertEqual(hangman.difficulty.maxWrongGuesses - 1, hangman.guessesLeft())
+        XCTAssertEqual(1, hangman.numberOfWrongGuesses())
     }
     
     
@@ -114,7 +104,7 @@ class HangmanTests: XCTestCase {
         _ = hangman.guess("r")
         
         
-        XCTAssertEqual(hangman.points(), HangmanDifficulty.easy.winningPoints*2)
+        XCTAssertEqual(hangman.points(), HangmanDifficulty.easy.winningPoints)
     }
     
     func testPointsWhenHasWon_NoIncorrectGuessesHard_MaxPoints() {
@@ -129,7 +119,7 @@ class HangmanTests: XCTestCase {
         _ = hangmanGame.guess("r")
         
         
-        XCTAssertEqual(hangmanGame.points(), HangmanDifficulty.hard.winningPoints*2)
+        XCTAssertEqual(hangmanGame.points(), HangmanDifficulty.hard.winningPoints)
     }
     
     func testPointsWhenHasNotWon_0() {
@@ -149,7 +139,7 @@ class HangmanTests: XCTestCase {
         _ = hangman.guess("r")
         
         
-        XCTAssertEqual(hangman.points(), HangmanDifficulty.easy.winningPoints + 7 * HangmanDifficulty.easy.winningPoints / 10)
+        XCTAssertEqual(hangman.points(), HangmanDifficulty.easy.winningPoints - 3 * HangmanDifficulty.easy.winningPoints / 10)
     }
     
     func testPointsWhenHasWon_SeveralIncorrectGuessesHard() {
@@ -167,6 +157,6 @@ class HangmanTests: XCTestCase {
         _ = hangmanGame.guess("r")
         
         
-        XCTAssertEqual(hangmanGame.points(), HangmanDifficulty.hard.winningPoints + 2 * HangmanDifficulty.hard.winningPoints / 5)
+        XCTAssertEqual(hangmanGame.points(), HangmanDifficulty.hard.winningPoints - 3 * HangmanDifficulty.hard.winningPoints / 5)
     }
 }
